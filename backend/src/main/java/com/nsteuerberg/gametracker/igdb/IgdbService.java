@@ -43,8 +43,8 @@ public class IgdbService {
     private Logger logger = LoggerFactory.getLogger(IgdbService.class);
 
     public IgdbService(
-            @Value("${igdb.client-id}") String clientId,
-            @Value("${igdb.client-secret}") String clientSecret,
+            @Value("${app.igdb.client-id}") String clientId,
+            @Value("${app.igdb.client-secret}") String clientSecret,
             TwitchClient twitchClient, IGDBclient igdBclient, TaskScheduler taskScheduler
     ) {
         this.clientId = clientId;
