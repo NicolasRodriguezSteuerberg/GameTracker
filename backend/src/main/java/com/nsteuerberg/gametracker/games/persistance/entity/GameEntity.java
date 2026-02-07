@@ -30,14 +30,14 @@ public class GameEntity {
     private Instant firstReleaseDate;
     @Column(name = "last_updated")
     private Instant lastUpdated;
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(
             name = "game_genres",
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private Set<GenreEntity> genres = new HashSet<>();
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(
             name = "game_platforms",
             joinColumns = @JoinColumn(name = "game_id"),

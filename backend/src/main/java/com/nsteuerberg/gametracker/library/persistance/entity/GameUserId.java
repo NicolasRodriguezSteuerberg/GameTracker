@@ -1,12 +1,15 @@
 package com.nsteuerberg.gametracker.library.persistance.entity;
 
 import jakarta.persistence.Embeddable;
-
 import java.io.Serializable;
+import lombok.*;
 
 @Embeddable
-public record GameUserId (
-    Long userId,
-    Long gameId
-) implements Serializable {
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+public class GameUserId implements Serializable {
+    private Long userId;
+    private Long gameId;
 }

@@ -18,7 +18,7 @@ import java.util.Optional;
 public interface GameRepository extends JpaRepository<GameEntity, Long>, JpaSpecificationExecutor<GameEntity> {
     List<GameEntity> findByIgdbIdIn(List<Long> igdbIds);
 
-    @EntityGraph(attributePaths = {"platforms"})
+    @EntityGraph(attributePaths = {"platforms", "genres"})
     Page<GameEntity> findAll(Specification<GameEntity> spec, Pageable pageable);
 
     @Query("SELECT MAX(game.lastUpdated) FROM GameEntity game")

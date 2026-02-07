@@ -9,7 +9,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata_production:/var/lib/postgresql/data
 
 volumes:
-  pgdata:
+  pgdata_production:
+    name: game_tracker_database

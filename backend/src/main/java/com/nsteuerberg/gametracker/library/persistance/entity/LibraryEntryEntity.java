@@ -35,6 +35,16 @@ public class LibraryEntryEntity {
     @Column(name="playtime_minutes")
     private Integer playtimeMinutes;
 
-    private Instant addedAt = Instant.now();
-    private Instant lastUpdated = Instant.now();
+    private Instant addedAt;
+    private Instant lastUpdated;
+
+    @PrePersist
+    public void prePersist() {
+        addedAt = Instant.now();
+        lastUpdated = Instant.now();
+    }
+    @PreUpdate
+    public void preUpdate (){
+        lastUpdated = Instant.now();
+    }
 }

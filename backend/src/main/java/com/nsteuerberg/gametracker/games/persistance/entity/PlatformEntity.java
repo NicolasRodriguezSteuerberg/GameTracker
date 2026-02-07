@@ -21,6 +21,7 @@ public class PlatformEntity {
     private Long igdbId;
     @Column(unique = true, nullable = false)
     private String name;
+    private String slug;
     @ManyToMany(mappedBy = "platforms")
     private Set<GameEntity> games = new HashSet<>();
 

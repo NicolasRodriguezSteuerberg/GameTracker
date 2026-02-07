@@ -8,9 +8,13 @@ import com.nsteuerberg.gametracker.games.persistance.repository.GenreRepository;
 import com.nsteuerberg.gametracker.games.persistance.repository.PlatformRepository;
 import com.nsteuerberg.gametracker.igdb.IgdbService;
 import com.nsteuerberg.gametracker.igdb.dto.CommonDTO;
+import com.nsteuerberg.gametracker.igdb.dto.CoverDTO;
 import com.nsteuerberg.gametracker.igdb.dto.IgdbGameDTO;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,7 +27,8 @@ import java.util.stream.Collectors;
 import static com.nsteuerberg.gametracker.igdb.IgdbService.VALID_PLATFORM_IDS;
 
 @Component
-public class SyncUpdateGamesUseCase {
+@RequiredArgsConstructor
+public class SyncUpdateGamesUseCase implements ApplicationRunner {
     private final GameRepository gameRepository;
     private final GenreRepository genreRepository;
     private final PlatformRepository platformRepository;
@@ -32,16 +37,9 @@ public class SyncUpdateGamesUseCase {
 
     private final static Logger logger = LoggerFactory.getLogger(SyncUpdateGamesUseCase.class);
 
-    public SyncUpdateGamesUseCase(GameRepository gameRepository, GenreRepository genreRepository, PlatformRepository platformRepository, IgdbService igdbService) {
-        this.gameRepository = gameRepository;
-        this.genreRepository = genreRepository;
-        this.platformRepository = platformRepository;
-        this.igdbService = igdbService;
-    }
-
-    @EventListener(ApplicationReadyEvent.class)
-    private void initOnStartUp() {
-        new Thread(() -> execute()).start();
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        execute();
     }
 
     @Scheduled(cron = "@daily")
@@ -95,7 +93,7 @@ public class SyncUpdateGamesUseCase {
 
             gameEntity.setName(gameDTO.name());
             gameEntity.setSummary(gameDTO.summary());
-            gameEntity.setCoverUrl(gameDTO.cover().url().replace("t_thumb", "t_cover_big"));
+            gameEntity.setCoverUrl(getUrl(gameDTO.cover()));
             gameEntity.setFirstReleaseDate(Instant.ofEpochSecond(gameDTO.first_release_date()));
             gameEntity.setLastUpdated(Instant.ofEpochSecond(gameDTO.updated_at()));
             gameEntity.setGenres(genreEntitySet);
@@ -104,6 +102,18 @@ public class SyncUpdateGamesUseCase {
             resultGamesEntities.add(gameEntity);
         }
         return resultGamesEntities;
+    }
+
+    private String getUrl(CoverDTO cover) {
+        String url = null;
+        if (cover != null && cover.url() != null) {
+            url = cover.url();
+            if (url.startsWith("//")) {
+                url = "https:" + url;
+            }
+            url = url.replace("t_thumb", "t_cover_big");
+        }
+        return url;
     }
 
     private Set<GenreEntity> putGenres(List<CommonDTO> genresDTO, Map<Long, GenreEntity> genresMap) {

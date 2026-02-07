@@ -6,10 +6,10 @@ import com.nsteuerberg.gametracker.games.persistance.entity.PlatformEntity;
 import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.util.List;
+import java.util.Set;
 
 public class GameSpecification {
-    public static Specification<GameEntity> hasPlatforms(List<Long> platformIds) {
+    public static Specification<GameEntity> hasPlatforms(Set<Long> platformIds) {
         return (root, query, cb) -> {
             if (platformIds == null || platformIds.isEmpty()) return cb.conjunction();
             System.out.println(platformIds);
@@ -18,7 +18,7 @@ public class GameSpecification {
         };
     }
 
-    public static Specification<GameEntity> hasGenres(List<Long> genreIds) {
+    public static Specification<GameEntity> hasGenres(Set<Long> genreIds) {
         return (root, query, cb) -> {
             if (genreIds == null || genreIds.isEmpty()) return cb.conjunction();
             Join<GameEntity, GenreEntity> genres = root.join("genres");

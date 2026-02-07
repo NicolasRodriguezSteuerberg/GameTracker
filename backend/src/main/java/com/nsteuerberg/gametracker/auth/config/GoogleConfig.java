@@ -14,7 +14,6 @@ public class GoogleConfig {
 
     public GoogleConfig(SecurityProperties securityProperties) {
         this.clientId = securityProperties.google().clientId();
-        System.out.println("Client id: " + clientId);
     }
 
     @Bean

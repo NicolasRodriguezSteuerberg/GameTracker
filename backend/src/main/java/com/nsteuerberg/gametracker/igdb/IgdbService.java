@@ -24,7 +24,7 @@ public class IgdbService {
     private final TwitchClient twitchClient;
     private final IGDBclient igdBclient;
     private final TaskScheduler taskScheduler;
-    private String authorization;
+    private volatile String authorization;
     public static final Set<Long> VALID_PLATFORM_IDS = Set.of(
             3L, // Linux
             6L, // PC

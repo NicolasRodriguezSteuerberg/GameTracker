@@ -24,6 +24,7 @@ public class SecurityConfig {
         return httpSecurity
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.GET, "/auth").authenticated()
+                        .requestMatchers("/**/library").authenticated()
                         .anyRequest().permitAll()
                 )
                 .csrf(csrf -> csrf.disable())

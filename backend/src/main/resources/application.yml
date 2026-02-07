@@ -20,7 +20,7 @@ app:
   security:
     admin-emails: ${ADMIN_EMAILS}
     google:
-      client-id: ${GOOGLE_CIENT_ID}
+      client-id: ${GOOGLE_CLIENT_ID}
       client-secret: ${GOOGLE_CLIENT_SECRET}
     token:
       refresh:

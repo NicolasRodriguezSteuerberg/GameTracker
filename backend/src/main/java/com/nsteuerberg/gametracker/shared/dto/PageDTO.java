@@ -1,4 +1,4 @@
-package com.nsteuerberg.gametracker.games.presentation.dto.response;
+package com.nsteuerberg.gametracker.shared.dto;
 
 import lombok.Builder;
 
@@ -9,7 +9,7 @@ public record PageDTO (
         List<?> content,
         int pageNumber,
         int pageSize,
-        int totalElements,
+        long totalElements,
         int totalPages,
         boolean last
 ){
