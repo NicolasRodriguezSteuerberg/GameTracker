@@ -1,5 +1,6 @@
 package com.nsteuerberg.gametracker.games.presentation.controller;
 
+import com.nsteuerberg.gametracker.shared.dto.FilterDTO;
 import com.nsteuerberg.gametracker.shared.dto.PageDTO;
 import com.nsteuerberg.gametracker.games.service.GameService;
 import org.springframework.data.domain.Pageable;
@@ -27,5 +28,11 @@ public class GameController {
             Pageable pageable
     ) {
         return gameService.getGames(platforms, genres, title, pageable);
+    }
+
+    @GetMapping("filters")
+    @ResponseStatus(HttpStatus.OK)
+    public FilterDTO getFilters() {
+        return gameService.getFilters();
     }
 }

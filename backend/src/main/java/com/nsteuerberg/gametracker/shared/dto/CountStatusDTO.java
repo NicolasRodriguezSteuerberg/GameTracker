@@ -1,7 +1,9 @@
 package com.nsteuerberg.gametracker.shared.dto;
 
+import com.nsteuerberg.gametracker.library.utils.GameStatus;
+
 public record CountStatusDTO (
-        String value,
+        GameStatus value,
         Long count
 ){
 }

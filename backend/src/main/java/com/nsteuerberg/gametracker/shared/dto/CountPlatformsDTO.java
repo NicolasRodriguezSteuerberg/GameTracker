@@ -5,4 +5,7 @@ public record CountPlatformsDTO (
         String name,
         Long count
 ){
+    public CountPlatformsDTO(Long id, String name) {
+        this(id, name, null); // Delega al constructor principal (canónico)
+    }
 }

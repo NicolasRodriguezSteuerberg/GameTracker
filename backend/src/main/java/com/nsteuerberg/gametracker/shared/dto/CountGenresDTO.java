@@ -5,4 +5,7 @@ public record CountGenresDTO (
         String name,
         Long count
 ){
+    public CountGenresDTO(Long id, String name) {
+        this(id, name, null); // Delega al constructor principal (canónico)
+    }
 }
