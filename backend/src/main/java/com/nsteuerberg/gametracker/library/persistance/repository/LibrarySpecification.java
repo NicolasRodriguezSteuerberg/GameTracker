@@ -37,7 +37,7 @@ public class LibrarySpecification {
         };
     }
 
-    public static Specification<LibraryEntryEntity> withGenres(Set<Long> genresIds) {
+    public static Specification<LibraryEntryEntity> withGenres(Set<String> genresIds) {
         return (root, query, cb) -> {
             if (genresIds == null || genresIds.isEmpty()) {
                 return cb.conjunction();
@@ -45,12 +45,12 @@ public class LibrarySpecification {
             query.distinct(true);
             return root.join("game")
                     .join("genres")
-                    .get("id")
+                    .get("slug")
                     .in(genresIds);
         };
     }
 
-    public static Specification<LibraryEntryEntity> withPlatforms(Set<Long> platformsId) {
+    public static Specification<LibraryEntryEntity> withPlatforms(Set<String> platformsId) {
         return (root, query, criteriaBuilder) -> {
             if (platformsId == null || platformsId.isEmpty()) {
                 return criteriaBuilder.conjunction();
@@ -58,7 +58,7 @@ public class LibrarySpecification {
             query.distinct(true);
             return root.join("game")
                     .join("platforms")
-                    .get("id")
+                    .get("slug")
                     .in(platformsId);
         };
     }

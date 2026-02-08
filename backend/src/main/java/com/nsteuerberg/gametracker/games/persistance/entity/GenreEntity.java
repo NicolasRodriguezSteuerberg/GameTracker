@@ -20,6 +20,8 @@ public class GenreEntity {
     @Column(name = "igdb_id", unique = true, nullable = false)
     private Long igdbId;
     @Column(unique = true, nullable = false)
+    private String slug;
+    @Column(nullable = false)
     private String name;
     @ManyToMany(mappedBy = "genres")
     private Set<GameEntity> games = new HashSet<>();

@@ -94,7 +94,14 @@ public class IgdbService {
     }
 
     private String getFields() {
-        return "fields id, name, summary, cover.url, platforms.name, genres.name, first_release_date, updated_at;";
+        return """
+        fields id, name, slug, summary, storyline,
+            cover.url, videos.video_id, videos.name, screenshots.url,
+            total_rating, total_rating_count,
+            platforms.name, platforms.slug,
+            genres.name, genres.slug,
+            first_release_date, updated_at;
+        """;
     }
 
     private String getWhere(Instant lastSync) {

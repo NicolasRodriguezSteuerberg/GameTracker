@@ -9,20 +9,20 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.Set;
 
 public class GameSpecification {
-    public static Specification<GameEntity> hasPlatforms(Set<Long> platformIds) {
+    public static Specification<GameEntity> hasPlatforms(Set<String> platformSlugs) {
         return (root, query, cb) -> {
-            if (platformIds == null || platformIds.isEmpty()) return cb.conjunction();
-            System.out.println(platformIds);
+            if (platformSlugs == null || platformSlugs.isEmpty()) return cb.conjunction();
+            System.out.println(platformSlugs);
             Join<GameEntity, PlatformEntity> platforms = root.join("platforms");
-            return platforms.get("id").in(platformIds);
+            return platforms.get("slug").in(platformSlugs);
         };
     }
 
-    public static Specification<GameEntity> hasGenres(Set<Long> genreIds) {
+    public static Specification<GameEntity> hasGenres(Set<String> genreSlugs) {
         return (root, query, cb) -> {
-            if (genreIds == null || genreIds.isEmpty()) return cb.conjunction();
+            if (genreSlugs == null || genreSlugs.isEmpty()) return cb.conjunction();
             Join<GameEntity, GenreEntity> genres = root.join("genres");
-            return genres.get("id").in(genreIds);
+            return genres.get("slug").in(genreSlugs);
         };
     }
 

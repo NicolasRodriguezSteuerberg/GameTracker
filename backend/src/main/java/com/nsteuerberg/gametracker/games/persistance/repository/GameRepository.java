@@ -18,6 +18,9 @@ import java.util.Optional;
 public interface GameRepository extends JpaRepository<GameEntity, Long>, JpaSpecificationExecutor<GameEntity> {
     List<GameEntity> findByIgdbIdIn(List<Long> igdbIds);
 
+    @EntityGraph(attributePaths = {"platforms", "genres", "videos", "screenshots"})
+    Optional<GameEntity> findBySlug(String slug);
+
     @EntityGraph(attributePaths = {"platforms", "genres"})
     Page<GameEntity> findAll(Specification<GameEntity> spec, Pageable pageable);
 

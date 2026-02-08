@@ -34,7 +34,7 @@ public class UserLibraryService {
 
     private final static Logger log = LoggerFactory.getLogger(UserLibraryService.class);
 
-    public PageDTO getLibrary(Long userId, Set<GameStatus> statuses, Set<Long> platforms, Set<Long> genres, String title, Pageable pageable) {
+    public PageDTO getLibrary(Long userId, Set<GameStatus> statuses, Set<String> platforms, Set<String> genres, String title, Pageable pageable) {
         Specification<LibraryEntryEntity> spec = Specification
                 .where(LibrarySpecification.hasUserId(userId))
                 .and(LibrarySpecification.withGameTitleLike(title))

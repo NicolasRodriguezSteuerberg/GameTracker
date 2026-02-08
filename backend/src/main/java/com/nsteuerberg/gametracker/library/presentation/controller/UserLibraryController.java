@@ -66,14 +66,14 @@ public class UserLibraryController {
     public PageDTO getGames(
             @PathVariable String userIdOrMe,
             @RequestParam(required = false) Set<GameStatus> statuses,
-            @RequestParam(required = false) Set<Long> platforms,
-            @RequestParam(required = false) Set<Long> genres,
+            @RequestParam(required = false) Set<String> platformSlugs,
+            @RequestParam(required = false) Set<String> genreSlugs,
             @RequestParam(required = false) String title,
             @PageableDefault(size = 50, sort="lastUpdated", direction= Sort.Direction.DESC) Pageable pageable,
             Authentication authentication
     ) {
         Long userId = authUtils.resolveUserId(userIdOrMe, authentication);
-        return userLibraryService.getLibrary(userId, statuses, platforms, genres, title, pageable);
+        return userLibraryService.getLibrary(userId, statuses, platformSlugs, genreSlugs, title, pageable);
     }
 
     @GetMapping("filters")
