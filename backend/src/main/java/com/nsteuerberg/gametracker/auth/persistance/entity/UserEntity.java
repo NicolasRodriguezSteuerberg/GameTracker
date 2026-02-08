@@ -17,7 +17,9 @@ import java.util.Set;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
+    @Column(name = "google_id", nullable = false, unique = true)
+    private String googleId;
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
@@ -27,6 +29,8 @@ public class UserEntity {
     private RoleEnum role;
     @Column(name = "created_at")
     private Instant createdAt;
+    @Column(name = "last_login")
+    private Instant lastLogin;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<RefreshTokenEntity> refreshTokens;
 }

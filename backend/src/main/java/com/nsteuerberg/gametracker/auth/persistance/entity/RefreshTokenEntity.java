@@ -20,6 +20,8 @@ public class RefreshTokenEntity {
     private String token;
     @Column(name = "device_id")
     private String deviceId;
+    @Column(name = "user_agent")
+    private String userAgent;
     @Column(name = "expires_at")
     private Instant expiresAt;
     @ManyToOne

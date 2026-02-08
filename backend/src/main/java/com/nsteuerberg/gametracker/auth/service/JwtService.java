@@ -8,7 +8,6 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.nsteuerberg.gametracker.auth.config.SecurityProperties;
 import com.nsteuerberg.gametracker.auth.persistance.entity.UserEntity;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,7 @@ public class JwtService {
         Instant now = Instant.now();
         return JWT.create()
                 .withIssuer(userGenerator)
-                .withSubject(user.getUserId().toString())
+                .withSubject(user.getId().toString())
                 .withClaim("authorities",authorities)
                 .withIssuedAt(now)
                 .withExpiresAt(now.plus(expireInMinutes, ChronoUnit.MINUTES))
