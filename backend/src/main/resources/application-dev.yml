@@ -1,0 +1,31 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true # Lo pone bonito
+  datasource:
+    url: jdbc:postgresql://${DB_URL:localhost/5432/gametracker}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:admin}
+
+app:
+  security:
+    token:
+      refresh:
+        expires-in-days: 30
+      jwt:
+        with-user: GameTracker-DEV
+        expires-in-minutes: 60
+
+logging:
+  level:
+    root: INFO
+    com.nsteuerber.gametracker: DEBUG
+    org.hibernate.SQL: DEBUG # Ver SQL
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE # Ver los valores de los ? en las queries
+    org.springframework.security: DEBUG # Ver por qué falla el login
+  file:
+    max-history: 5

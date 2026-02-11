@@ -1,37 +1,39 @@
+server:
+  port: 8080
+
 spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
   application:
     name: GameTracker
 
   jpa:
-    show-sql: true
-    generate-dll: false
-    database: POSTGRESQL
     defer-datasource-initialization: true
-    hibernate:
-      ddl-auto: update
+    database: POSTGRESQL
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
 
 app:
   security:
-    admin-emails: ${ADMIN_EMAILS}
+    admin-emails: ${ADMIN_EMAILS:}
     google:
       client-id: ${GOOGLE_CLIENT_ID}
       client-secret: ${GOOGLE_CLIENT_SECRET}
     token:
-      refresh:
-        expires-in-days: ${TOKEN_REFRESH_EXPIRES_DAYS}
       jwt:
-        with-user: ${JWT_ISSUER}
-        expires-in-minutes: ${JWT_EXPIRES_MINUTES}
         rsa:
           private-key: classpath:keys/private.pem
           public-key: classpath:keys/public.pem
-
   igdb:
     client-id: ${IGDB_CLIENT_ID}
     client-secret: ${IGDB_CLIENT_SECRET}
+
+
+logging:
+  # Ruta donde se guardarán los logs
+  file:
+    name: logs/gametracker.log
+    max-size: 10MB
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %5p %class{0}:: %m%n"

@@ -4,8 +4,8 @@ services:
     container_name: game_tracker_db
     environment:
       POSTGRES_DB: game_tracker
-      POSTGRES_USER: game_tracker
-      POSTGRES_PASSWORD: game_tracker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
     ports:
       - "5432:5432"
     volumes:

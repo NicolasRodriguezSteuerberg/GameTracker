@@ -55,7 +55,6 @@ public class SyncUpdateGamesUseCase implements ApplicationRunner {
 
         Long count = igdbService.getCount(lastSync);
         logger.info("Sync games, count: {}", count);
-        System.out.println(count);
         int totalPages = (int) Math.ceil((double) count / limit);
 
         for (int i = 0; i < totalPages; i++) {

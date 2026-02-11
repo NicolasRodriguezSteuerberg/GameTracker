@@ -12,7 +12,6 @@ public class GameSpecification {
     public static Specification<GameEntity> hasPlatforms(Set<String> platformSlugs) {
         return (root, query, cb) -> {
             if (platformSlugs == null || platformSlugs.isEmpty()) return cb.conjunction();
-            System.out.println(platformSlugs);
             Join<GameEntity, PlatformEntity> platforms = root.join("platforms");
             return platforms.get("slug").in(platformSlugs);
         };

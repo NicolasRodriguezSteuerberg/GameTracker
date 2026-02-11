@@ -79,7 +79,6 @@ public class IgdbService {
 
     public Long getCount(Instant lastSync) {
         String where = getWhere(lastSync);
-        System.out.println(where);
         return igdBclient.getCount(clientId, authorization, getWhere(lastSync)).count();
     }
 
