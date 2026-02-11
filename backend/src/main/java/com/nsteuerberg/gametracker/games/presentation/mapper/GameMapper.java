@@ -6,8 +6,8 @@ import com.nsteuerberg.gametracker.shared.dto.PageDTO;
 import org.springframework.data.domain.Page;
 
 public class GameMapper {
-    public static PageDTO toPageCatalogDTO(Page<GameEntity> gamePage) {
-        return PageDTO.builder()
+    public static PageDTO<GameCatalogDTO> toPageCatalogDTO(Page<GameEntity> gamePage) {
+        return PageDTO.<GameCatalogDTO>builder()
                 .pageNumber(gamePage.getNumber())
                 .pageSize(gamePage.getSize())
                 .totalElements(gamePage.getTotalElements())

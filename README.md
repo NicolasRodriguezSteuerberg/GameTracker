@@ -22,5 +22,10 @@ El proyecto está dividido en dos partes:
 - **Base de Datos:** PostgeSQL
 - **Backend:** JAVA, Spring Boot
 
+## Agradecimientos y Atribución
 
-Hecho por Nicolás Rodríguez Steuerberg
+Este proyecto utiliza la API pública de **IGDB** para obtener información sobre videojuegos.
+* Datos proporcionados por [IGDB](https://www.igdb.com).
+* Iconos y logos propiedad de sus respectivos dueños.
+
+[Powered by IGDB](https://www.igdb.com)

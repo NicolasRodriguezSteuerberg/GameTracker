@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 
 public class LibraryMapper {
     public static PageDTO toPageLibraryDTO(Page<LibraryEntryEntity> page) {
-        return PageDTO.builder()
+        return PageDTO.<LibraryGameDTO>builder()
                 .pageNumber(page.getNumber())
                 .pageSize(page.getSize())
                 .totalElements(page.getTotalElements())

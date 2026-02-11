@@ -63,7 +63,7 @@ public class UserLibraryController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public PageDTO getGames(
+    public PageDTO<LibraryGameDTO> getGames(
             @PathVariable String userIdOrMe,
             @RequestParam(required = false) Set<GameStatus> statuses,
             @RequestParam(required = false) Set<String> platformSlugs,

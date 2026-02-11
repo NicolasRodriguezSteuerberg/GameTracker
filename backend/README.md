@@ -1,6 +1,6 @@
 # Game Tracker - Backend API
 Este es el núcleo de la aplicación Game Tracker. Se encarga de la gestión de usuarios, persistencia de datos y la sincronización con IGDB.
-
+> Note akljsdf;ljasd
 ## Funcionalidades Técnicas
 ### Autenticación y Seguridad
 - **Gogle Login:** Validación de credenciales de Google en el lado del servidor.
