@@ -54,29 +54,29 @@ public class DocumentationConfig {
     // Descripción estilo en Markdown
     private String getDescription() {
         return """
-                Welcome to the official GameTracker API documentation. This API allows users to manage their personal video games library, track progress, score games...
-                
-                > **Note** This API uses **IGDB** to sync data and provide rich metadata.
-                
-                ## Legal & Attribution
-                This application uses data from **IGDB** but is not endorsed or certified by IGDB.
-                * **Data Source:** [IGDB.com](https://www.igdb.com)
-                * **Terms:** Use of this data is subject to IGDB's API Terms of Service.
-                
-                ## Authentication
-                This API uses **JWT** for security.
-                1. Authenticate via `/auth/login` (using your Google token id) to receive your **Access Token**.
-                2. Click the **Authorize** button at the top right.
-                3. Enter your token to unlock protected endpoints.
-                
-                ## Usage Guidelines
-                To ensure best performance and UX, this api uses hybrid approach for identifaction
-                * **Reading (GET):** Use `slugs` (e.g.: `/games/elden-ring`) for human-readable URLs.
-                * **Writing  (POST/PATCH/DELETE):** Use numeric `IDs` (e.g: `/users/me/library/152`) to ensure data integrity and performance.
-                
-                ## Features
-                * **Library Management:** Track statuses (Playing, Completed, etc.), manage play time and rate games.
-                * **IGDB Integration:** Rich metadata including covers, screenshots, videos...
-                """;
+        Welcome to the official GameTracker API documentation. This API allows users to manage their personal video games library, track progress, score games...
+        
+        > **Note** This API uses **IGDB** to sync data and provide rich metadata.
+        
+        ## Legal & Attribution
+        This application uses data from **IGDB** but is not endorsed or certified by IGDB.
+        * **Data Source:** [IGDB.com](https://www.igdb.com)
+        * **Terms:** Use of this data is subject to IGDB's API Terms of Service.
+        
+        ## Authentication
+        This API uses **JWT** for security.
+        1. Authenticate via `/auth/login` (using your Google token id) to receive your **Access Token**.
+        2. Click the **Authorize** button at the top right.
+        3. Enter your token to unlock protected endpoints.
+        
+        ## Usage Guidelines
+        To ensure best performance and UX, this api uses hybrid approach for identifaction
+        * **Reading (GET):** Use `slugs` (e.g.: `/games/elden-ring`) for human-readable URLs.
+        * **Writing  (POST/PATCH/DELETE):** Use numeric `IDs` (e.g: `/users/me/library/152`) to ensure data integrity and performance.
+        
+        ## Features
+        * **Library Management:** Track statuses (Playing, Completed, etc.), manage play time and rate games.
+        * **IGDB Integration:** Rich metadata including covers, screenshots, videos...
+        """;
     }
 }

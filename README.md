@@ -22,6 +22,11 @@ El proyecto está dividido en dos partes:
 - **Base de Datos:** PostgeSQL
 - **Backend:** JAVA, Spring Boot
 
+## Enlaces
+| Recurso | URL Local | Descripción |
+| :--- | :--- | :--- |
+| **Documentacion** | [Swagger UI](http://localhost:8080/swagger-ui/index.html) | Explorar y probar endpoints |
+
 ## Agradecimientos y Atribución
 
 Este proyecto utiliza la API pública de **IGDB** para obtener información sobre videojuegos.
