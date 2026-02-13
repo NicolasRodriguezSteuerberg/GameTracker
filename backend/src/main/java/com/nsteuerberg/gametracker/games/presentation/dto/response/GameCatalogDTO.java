@@ -10,8 +10,7 @@ public record GameCatalogDTO (
         String name,
         String coverUrl,
         ScoreDTO score,
-        List<CommonDTO> platforms,
-        List<CommonDTO> genres
+        List<CommonDTO> platforms
 ){
     public static GameCatalogDTO fromEntity(GameEntity game) {
         return new GameCatalogDTO(
@@ -20,9 +19,7 @@ public record GameCatalogDTO (
                 game.getName(),
                 game.getCoverUrl(),
                 ScoreDTO.fromEntity(game.getScore()),
-                CommonDTO.fromPlatformsEntity(game.getPlatforms()),
-                CommonDTO.fromGenrseEntity(game.getGenres())
-
+                CommonDTO.fromPlatformsEntity(game.getPlatforms())
         );
     }
 }

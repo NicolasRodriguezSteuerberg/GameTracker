@@ -67,7 +67,7 @@ public class LibrarySpecification {
         return (root, query, criteriaBuilder) -> {
             if (query.getResultType() != Long.class) {
                 Fetch<LibraryEntryEntity, GameEntity> gameFetch = root.fetch("game", JoinType.LEFT);
-                gameFetch.fetch("genres", JoinType.LEFT);
+                //gameFetch.fetch("genres", JoinType.LEFT);
                 gameFetch.fetch("platforms", JoinType.LEFT);
             }
             return criteriaBuilder.conjunction();

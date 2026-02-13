@@ -21,7 +21,7 @@ public interface GameRepository extends JpaRepository<GameEntity, Long>, JpaSpec
     @EntityGraph(attributePaths = {"platforms", "genres", "videos", "screenshots"})
     Optional<GameEntity> findBySlug(String slug);
 
-    @EntityGraph(attributePaths = {"platforms", "genres"})
+    @EntityGraph(attributePaths = {"platforms"})
     Page<GameEntity> findAll(Specification<GameEntity> spec, Pageable pageable);
 
     @Query("SELECT MAX(game.lastUpdated) FROM GameEntity game")
