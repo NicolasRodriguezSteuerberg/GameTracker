@@ -22,10 +22,11 @@ import java.util.Set;
 @RestController
 @RequestMapping("users/{userIdOrMe}/library")
 @RequiredArgsConstructor
-public class UserLibraryController {
+public class UserLibraryController implements IUserLibraryController{
     private final UserLibraryService userLibraryService;
     private final AuthUtils authUtils;
 
+    @Override
     @PostMapping("/{gameId}")
     @ResponseStatus(HttpStatus.CREATED)
     public LibraryGameDTO addGame(
@@ -38,6 +39,7 @@ public class UserLibraryController {
         return userLibraryService.addGame(userId, gameId, gameAddRequest);
     }
 
+    @Override
     @PatchMapping("/{gameId}")
     @ResponseStatus(HttpStatus.OK)
     public LibraryGameDTO updateGame(
@@ -50,6 +52,7 @@ public class UserLibraryController {
         return userLibraryService.updateGame(userId, gameId, updateRequest);
     }
 
+    @Override
     @DeleteMapping("/{gameId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGame(
@@ -61,6 +64,7 @@ public class UserLibraryController {
         userLibraryService.deleteGame(userId, gameId);
     }
 
+    @Override
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public PageDTO<LibraryGameDTO> getGames(

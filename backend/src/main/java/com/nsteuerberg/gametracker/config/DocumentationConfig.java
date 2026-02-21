@@ -5,6 +5,9 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.media.IntegerSchema;
+import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
@@ -41,6 +44,13 @@ public class DocumentationConfig {
                 .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
                 .components(new Components()
                         .addSecuritySchemes("Bearer Authentication", createSecurityScheme())
+                        .addSchemas("ProblemDetail", new Schema()
+                                .type("object")
+                                .addProperty("title", new StringSchema().example("Resource Not Found"))
+                                .addProperty("detail", new StringSchema().example("Game with ID 123 not found"))
+                                .addProperty("instance", new StringSchema().example("/api/games/123"))
+                                .addProperty("status", new IntegerSchema().example(404))
+                        )
                 );
     }
 

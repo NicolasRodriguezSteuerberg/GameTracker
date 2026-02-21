@@ -2,6 +2,7 @@ package com.nsteuerberg.gametracker.library.service;
 
 import com.nsteuerberg.gametracker.auth.persistance.repository.UserRepository;
 import com.nsteuerberg.gametracker.games.persistance.repository.GameRepository;
+import com.nsteuerberg.gametracker.games.service.exceptions.GameNotFoundException;
 import com.nsteuerberg.gametracker.library.presentation.mapper.LibraryMapper;
 import com.nsteuerberg.gametracker.shared.dto.FilterDTO;
 import com.nsteuerberg.gametracker.shared.dto.PageDTO;
@@ -48,6 +49,9 @@ public class UserLibraryService {
 
     public LibraryGameDTO addGame(Long userId, Long gameId, GameAddRequest progressRequest) {
         log.debug("Intentando agregar el juego {} a la biblioteca del usuario {}", gameId, userId);
+        if (!gameRepository.existsById(gameId)) {
+            throw new GameNotFoundException(gameId);
+        }
         GameUserId gameUserId = new GameUserId(userId, gameId);
         if (libraryEntryRepository.existsById(gameUserId)) {
             throw new GameAlreadyInLibraryException(userId, gameId);
@@ -68,6 +72,9 @@ public class UserLibraryService {
 
     public LibraryGameDTO updateGame(Long userId, Long gameId, GameUpdateRequest updateRequest) {
         log.debug("Intentando modificar el juego {} de la biblioteca del usuario {}");
+        if (!gameRepository.existsById(gameId)) {
+            throw new GameNotFoundException(gameId);
+        }
         LibraryEntryEntity userGame = libraryEntryRepository.findById(new GameUserId(userId, gameId))
                 .orElseThrow(() -> new GameNotFoundInLibraryException(userId, gameId));
         if (updateRequest.status() != null) {

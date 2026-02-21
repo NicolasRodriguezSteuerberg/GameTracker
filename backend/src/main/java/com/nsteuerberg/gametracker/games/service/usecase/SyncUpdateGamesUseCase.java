@@ -120,7 +120,7 @@ public class SyncUpdateGamesUseCase implements ApplicationRunner {
     private List<VideoData> getVideos(List<VideoDTO> videos) {
         if (videos == null) return new ArrayList<>();
         return videos.stream()
-                .map(video -> new VideoData(video.videoId(), video.name()))
+                .map(video -> new VideoData(video.video_id(), video.name()))
                 .toList();
     }
 
@@ -144,7 +144,7 @@ public class SyncUpdateGamesUseCase implements ApplicationRunner {
     }
 
     private Set<GenreEntity> putGenres(List<CommonDTO> genresDTO, Map<Long, GenreEntity> genresMap) {
-        Set<GenreEntity> genreEntities = new HashSet<>();
+        Set<GenreEntity> genreEntities = new LinkedHashSet<>();
         for (CommonDTO commonDTO: genresDTO) {
             // si no existe en el diccionario, buscamos en la base de datos, de no existir, lo guardamos
             GenreEntity entity = genresMap.computeIfAbsent(commonDTO.id(), id ->
@@ -162,7 +162,7 @@ public class SyncUpdateGamesUseCase implements ApplicationRunner {
     }
 
     private Set<PlatformEntity> putPlatforms(List<CommonDTO> platformsDTO, Map<Long, PlatformEntity> platformsMap) {
-        Set<PlatformEntity> platformEntities = new HashSet<>();
+        Set<PlatformEntity> platformEntities = new LinkedHashSet<>();
         for (CommonDTO commonDTO: platformsDTO) {
             if (!VALID_PLATFORM_IDS.contains(commonDTO.id())) continue;
             PlatformEntity entity = platformsMap.computeIfAbsent(commonDTO.id(), id ->

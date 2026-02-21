@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Set;
 
 @Tag(name = "Games", description = "Endpoints for retrieving game information and available filters")
-public interface GameControllerInterface {
+public interface IGameController {
 
     @Operation(
             summary = "Get a paginated list of games",

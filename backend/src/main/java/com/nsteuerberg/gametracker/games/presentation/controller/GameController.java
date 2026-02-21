@@ -15,7 +15,7 @@ import java.util.Set;
 @RestController()
 @RequestMapping("games")
 @RequiredArgsConstructor
-public class GameController implements GameControllerInterface{
+public class GameController implements IGameController {
     private final GameService gameService;
 
     @Override

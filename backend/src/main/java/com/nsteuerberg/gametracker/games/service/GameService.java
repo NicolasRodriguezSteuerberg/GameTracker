@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -35,6 +36,7 @@ public class GameService {
         return GameMapper.toPageCatalogDTO(games);
     }
 
+    @Transactional(readOnly = true)
     public GameDTO getGame(String slug) {
         GameEntity game = gameRepository.findBySlug(slug).orElseThrow(() -> new GameNotFoundException(slug));
         return GameDTO.fromEntity(game);

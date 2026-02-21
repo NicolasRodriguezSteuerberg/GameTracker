@@ -1,6 +1,8 @@
 package com.nsteuerberg.gametracker.library.service.exceptions;
 
-public class GameNotFoundInLibraryException extends RuntimeException {
+import com.nsteuerberg.gametracker.shared.exceptions.ResourceNotFoundException;
+
+public class GameNotFoundInLibraryException extends ResourceNotFoundException {
     public GameNotFoundInLibraryException(Long userId, Long gameId) {
         super(String.format("El juego %d no se encuentra en la biblioteca del usuario %d", userId, gameId));
     }

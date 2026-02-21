@@ -5,12 +5,11 @@ import com.nsteuerberg.gametracker.games.persistance.entity.embed.ScoreData;
 import com.nsteuerberg.gametracker.games.persistance.entity.embed.VideoData;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -51,6 +50,7 @@ public class GameEntity {
             name = "game_videos",
             joinColumns = @JoinColumn(name = "game_id")
     )
+    @Fetch(FetchMode.SUBSELECT)
     private List<VideoData> videos = new ArrayList<>();
 
     @ElementCollection()
@@ -59,6 +59,7 @@ public class GameEntity {
             joinColumns = @JoinColumn(name = "game_id")
     )
     @Column(name = "image_url") // nombre en la tabla de screenshots
+    @Fetch(FetchMode.SUBSELECT)
     private List<String> screenshots = new ArrayList<>();
 
     @Column(name = "first_release_date")
@@ -72,14 +73,16 @@ public class GameEntity {
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    private Set<GenreEntity> genres = new HashSet<>();
+    @OrderBy("name ASC")
+    private Set<GenreEntity> genres = new LinkedHashSet<>();
     @ManyToMany()
     @JoinTable(
             name = "game_platforms",
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "platform_id")
     )
-    private Set<PlatformEntity> platforms = new HashSet<>();
+    @OrderBy("name ASC")
+    private Set<PlatformEntity> platforms = new LinkedHashSet<>();
 
     @Override
     public String toString() {
