@@ -14,7 +14,7 @@ import java.security.GeneralSecurityException;
 @RestController
 @RequestMapping("auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements IAuthController{
     private final AuthService authService;
 
     @PostMapping("login")
@@ -23,7 +23,7 @@ public class AuthController {
             @RequestHeader("X-Device-Id") String deviceId,
             @RequestHeader(HttpHeaders.USER_AGENT) String userAgent,
             @RequestParam String tokenId
-    ) throws GeneralSecurityException, IOException {
+    ) {
         return authService.login(tokenId, deviceId, userAgent);
     }
 

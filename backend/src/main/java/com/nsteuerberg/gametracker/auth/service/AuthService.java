@@ -44,8 +44,15 @@ public class AuthService {
         this.adminUsers = securityProperties.adminEmails();
     }
 
-    public JwtDTO login(String requestIdToken, String deviceId, String userAgent) throws GeneralSecurityException, IOException {
-        GoogleIdToken idToken = googleIdTokenVerifier.verify(requestIdToken);
+    public JwtDTO login(String requestIdToken, String deviceId, String userAgent) {
+        GoogleIdToken idToken = null;
+        try {
+            idToken = googleIdTokenVerifier.verify(requestIdToken);
+        } catch (GeneralSecurityException ex) {
+            logger.warn("General security exception: {}", ex.getMessage());
+        } catch (IOException ex) {
+
+        }
         if (idToken == null) throw new InvalidTokenException("token invalido");
 
         GoogleIdToken.Payload payload = idToken.getPayload();
