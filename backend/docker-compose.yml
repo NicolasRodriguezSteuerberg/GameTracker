@@ -1,3 +1,5 @@
+name: gametracker
+
 services:
   db:
     image: postgres:17
@@ -8,9 +10,19 @@ services:
       POSTGRES_PASSWORD: admin
     ports:
       - "5432:5432"
+    restart: unless-stopped
     volumes:
       - pgdata_production:/var/lib/postgresql/data
-
+  backend:
+    image: gametracker-backend:latest
+    container_name: game_tracker_backend
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    restart: unless-stopped
+    depends_on:
+      - db
 volumes:
   pgdata_production:
     name: game_tracker_database

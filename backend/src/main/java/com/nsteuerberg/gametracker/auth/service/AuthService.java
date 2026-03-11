@@ -48,10 +48,8 @@ public class AuthService {
         GoogleIdToken idToken = null;
         try {
             idToken = googleIdTokenVerifier.verify(requestIdToken);
-        } catch (GeneralSecurityException ex) {
-            logger.warn("General security exception: {}", ex.getMessage());
-        } catch (IOException ex) {
-
+        } catch (GeneralSecurityException | IOException ex) {
+            logger.warn("Google verifier exception: {}", ex.getMessage());
         }
         if (idToken == null) throw new InvalidTokenException("token invalido");
 

@@ -39,9 +39,11 @@ IGDB_CLIENT_SECRET=client_secret
 GOOGLE_CLIENT_ID=google_client_id
 GOOGLE_CLIENT_SECRET=google_client_secret
 ```
-3. Ejecutar la aplicación en Linux/Mac
+3. Construir la imagen docker y ejecutar
 ```shell
-export $(cat .env | xargs) && ./mvnw spring-boot:run
+cd backend
+docker build -t gametracker-backend .
+docker compose up -d
 ```
 
 ## Documentación API
