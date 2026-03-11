@@ -1,5 +1,25 @@
 # Game Tracker - Backend API
-Este es el núcleo de la aplicación Game Tracker. Se encarga de la gestión de usuarios, persistencia de datos y la sincronización con IGDB.
+API REST para gestionar bibliotecas de videojuegos con autenticación segura y sincronización con IGDB.
+
+## Quick Start
+1. **Clonar el repositorio**
+```shell
+git clone https://github.com/NicolasRodriguezSteuerberg/GameTracker.git
+```
+2. **Ir a la carpeta backend**
+```shell
+cd backend
+```
+3. **Configurar variables de entorno**
+```dotenv
+cp .env.example .env
+```
+4. **Ejecutar docker compose**
+```shell
+docker build -t gametracker-backend .
+docker compose up -d
+```
+5. **[Abrir Swagger](http://localhost:8080/swagger-ui/index.html)**
 
 ## Stack Tecnológico
 - Lenguaje: Java 21
@@ -8,43 +28,51 @@ Este es el núcleo de la aplicación Game Tracker. Se encarga de la gestión de 
 - Seguridad: Spring Security + OAuth2 (Google) + JWT
 - Documentación: OpenAPI (Swagger)
 
-## Instalación y Puesta en Marcha
+## Arquitectura
+La aplicación utiliza una arquitectura monolito modular, esto facilita la escalabilidad y mantenimiento.
+Separación de dominios:
+- Catálogo
+- Biblioteca de usuario
+- Autenticación
+
+## Instalación y Configuración
 
 ### Prerrequisitos
-- Java 21 JDK instalado
-- PostgreSQL (local o via Docker)
+- Docker y Docker Compose
 - Cuenta de desarrollador en [IGDB](https://api-docs.igdb.com/#getting-started) (Twitch Developer).
 - Credenciales de Google Cloud Console (OAuth 2.0).
 
-### Pasos
-1. **Clonar el repositorio y navegar al backend:**
+### Configuración de variables de entorno
+Copiar el archivo `.env.example` como `.env`
+
+#### Configuración de base de datos
+- DB_URL -> dirección de PostgreSQL
+- DB_USER -> usuario de la base de datos
+- DB_PASSWORD -> contraseña
+
+#### Configuración JWT
+- JWT_ISSUER -> identificador del emisor del token
+- ADMIN_EMAILS -> correos con permisos administrativos
+#### Configuración IGDB
+- IGDB_CLIENT_ID -> credencial de Twitch Developer
+- IGDB_CLIENT_SECRET -> credencial secreta
+#### Configuración Google OAuth
+- GOOGLE_CLIENT_ID -> credencial OAuth del proyecto
+- GOOGLE_CLIENT_SECRET -> credencial secreta
+
+### Construcción y ejecución con Docker
+1. Construir la imagen del backend:
 ```shell
-git clone https://github.com/NicolasRodriguezSteuerberg/GameTracker.git
-cd backend
-```
-2. **Configurar Variables de Entorno:** Crear un archivo `.env` basándote en el ejemplo:
-```env
-SPRING_PROFILES_ACTIVE=prod # también está dev
-
-DB_URL=localhost:5432/game_tracker
-DB_USER=game_tracker
-DB_PASSWORD=game_tracker
-
-JWT_ISSUER=example@gmail.com
-ADMIN_EMAILS=example@gmail.com,example2@gmail.com
-
-IGDB_CLIENT_ID=client_id
-IGDB_CLIENT_SECRET=client_secret
-
-GOOGLE_CLIENT_ID=google_client_id
-GOOGLE_CLIENT_SECRET=google_client_secret
-```
-3. Construir la imagen docker y ejecutar
-```shell
-cd backend
 docker build -t gametracker-backend .
+```
+2. Levantar el servicio:
+```shell
 docker compose up -d
 ```
+
+Esto iniciará:
+- La API
+- La base de datos PostgreSQL
 
 ## Documentación API
 Una vez levantada la applicación, la documentación interactiva estará disponible en:
@@ -55,8 +83,8 @@ También se puede obtener la especificación OpenAPI en formato JSON:
 
 ## Funcionalidades Técnicas
 ### Autenticación y Seguridad
-- **Gogle Login:** Validación de credenciales de Google en el lado del servidor.
-- **JWT:** Generación de tokens propias tras el login de Google para independizar la sesión y autorizar peticiones. (Utilización de refresh tokens (por dispositivo) para no tener que volver a iniciar sesión).
+- **Google Login:** Validación de credenciales de Google en el lado del servidor.
+- **JWT:** Generación de tokens propios tras el login de Google para independizar la sesión y autorizar peticiones. (Utilización de refresh tokens (por dispositivo) para no tener que volver a iniciar sesión).
 
 ### Sincronización con IGDB
 El sistema mantiene un catálogo local actualizado para búsquedas rápidas:
@@ -64,7 +92,7 @@ El sistema mantiene un catálogo local actualizado para búsquedas rápidas:
 2. **Cron Job:** Tarea programada **todos los días a las 12:00 AM** para buscar actualizaciones o nuevos lanzamientos (siempre que el servidor esté en ejecución).
 
 ### Gestión de la Biblioteca Personal
-Enpoints protegidos para que cada usuario gestione sus juegos. Permite gestionarlos utilizando /me o el id del usuario
+Endpoints protegidos para que cada usuario gestione sus juegos. Permite gestionarlos utilizando /me o el id del usuario
 - **CRUD Completo**
 - **Filtros:** Consulta tus juegos filtrando por:
     - Estado (Completado, Jugando, Pendiente, Abandonado)
@@ -73,3 +101,16 @@ Enpoints protegidos para que cada usuario gestione sus juegos. Permite gestionar
     - Plataformas
     - Nombre
     - Tiempo jugado
+
+## API Overview
+- Catálogo
+  - Buscar juegos
+  - Obtener detalles
+- Biblioteca
+  - Añadir juego
+  - Actualizar estado
+  - Eliminar juego
+  - Listar biblioteca
+- Autenticación
+  - Inicio de sesión
+  - Refrescar token
