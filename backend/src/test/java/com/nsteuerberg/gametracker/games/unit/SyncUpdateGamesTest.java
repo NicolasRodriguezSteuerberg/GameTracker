@@ -1,4 +1,4 @@
-package com.nsteuerberg.gametracker.unit;
+package com.nsteuerberg.gametracker.games.unit;
 
 import com.nsteuerberg.gametracker.games.persistance.entity.GameEntity;
 import com.nsteuerberg.gametracker.games.persistance.entity.GenreEntity;
@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import static com.nsteuerberg.gametracker.games.helpers.GameTestHelpers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -42,57 +43,6 @@ public class SyncUpdateGamesTest {
 
     @InjectMocks
     SyncUpdateGamesUseCase syncUpdateGamesUseCase;
-
-    private static final Instant LAST_SYNC = Instant.MAX;
-    private static final String GAME_NAME = "Test";
-
-    private PlatformEntity createTestPlatform() {
-        return new PlatformEntity(1L, 20L, "ds", "Nintendo DS", new HashSet<>());
-    }
-
-    private GenreEntity createTestGenre() {
-        return new GenreEntity(1L, 1L, "action", "Action", new HashSet<>());
-    }
-
-    private IgdbGameDTO createValidTestGameDto() {
-        return new IgdbGameDTO(1L, GAME_NAME, "test", "test", "", 4.0, 1000,
-                List.of(new CommonDTO(20L, "ds", "Nintendo DS")), List.of(new CommonDTO(1L, "action", "Action")),
-                Instant.MIN.getEpochSecond(), Instant.MIN.getEpochSecond(), new CoverDTO(1L, "//t_thumb.jpg"), List.of(),
-                List.of()
-        );
-    }
-
-    private IgdbGameDTO createInvalidTestGameDtoByPlatform() {
-        return new IgdbGameDTO(1L, GAME_NAME, "test", "test", "", 4.0, 1000,
-                null, List.of(new CommonDTO(1L, "action", "Action")),
-                Instant.MIN.getEpochSecond(), Instant.MIN.getEpochSecond(), new CoverDTO(1L, "//t_thumb.jpg"), List.of(),
-                List.of()
-        );
-    }
-
-    private IgdbGameDTO createInvalidTestGameDtoByGenre() {
-        return new IgdbGameDTO(1L, GAME_NAME, "test", "test", "", 4.0, 1000,
-                List.of(new CommonDTO(20L, "ds", "Nintendo DS")), null,
-                Instant.MIN.getEpochSecond(), Instant.MIN.getEpochSecond(), new CoverDTO(1L, "//t_thumb.jpg"), List.of(),
-                List.of()
-        );
-    }
-
-    private IgdbGameDTO createInvalidTestGameDtoByCover() {
-        return new IgdbGameDTO(1L, GAME_NAME, "test", "test", "", 4.0, 1000,
-                List.of(new CommonDTO(20L, "ds", "Nintendo DS")), List.of(new CommonDTO(1L, "action", "Action")),
-                Instant.MIN.getEpochSecond(), Instant.MIN.getEpochSecond(), null, List.of(),
-                List.of()
-        );
-    }
-
-    private IgdbGameDTO createInvalidTestGameDtoByReleaseDate() {
-        return new IgdbGameDTO(1L, GAME_NAME, "test", "test", "", 4.0, 1000,
-                List.of(new CommonDTO(20L, "ds", "Nintendo DS")), List.of(new CommonDTO(1L, "action", "Action")),
-                null, Instant.MIN.getEpochSecond(), new CoverDTO(1L, "//t_thumb.jpg"), List.of(),
-                List.of()
-        );
-    }
 
     @Test
     void shouldSyncGamesSuccessfully() {
