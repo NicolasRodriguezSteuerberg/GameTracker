@@ -10,7 +10,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
 
-public class GameTestHelpers {
+public class SyncUpdateGamesTestHelpers {
     public static final Instant LAST_SYNC = Instant.MAX;
     public static final String GAME_NAME = "Test";
 

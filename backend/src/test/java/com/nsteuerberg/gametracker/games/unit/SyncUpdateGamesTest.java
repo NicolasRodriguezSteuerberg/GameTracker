@@ -8,8 +8,6 @@ import com.nsteuerberg.gametracker.games.persistance.repository.GenreRepository;
 import com.nsteuerberg.gametracker.games.persistance.repository.PlatformRepository;
 import com.nsteuerberg.gametracker.games.service.usecase.SyncUpdateGamesUseCase;
 import com.nsteuerberg.gametracker.igdb.IgdbService;
-import com.nsteuerberg.gametracker.igdb.dto.CommonDTO;
-import com.nsteuerberg.gametracker.igdb.dto.CoverDTO;
 import com.nsteuerberg.gametracker.igdb.dto.IgdbGameDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,12 +16,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Instant;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
-import static com.nsteuerberg.gametracker.games.helpers.GameTestHelpers.*;
+import static com.nsteuerberg.gametracker.games.helpers.SyncUpdateGamesTestHelpers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
