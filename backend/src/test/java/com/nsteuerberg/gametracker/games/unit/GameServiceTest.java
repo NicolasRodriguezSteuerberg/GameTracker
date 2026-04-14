@@ -99,6 +99,7 @@ public class GameServiceTest {
         assertEquals(gameCatalogDTO.platforms().size(), gameEntity.getPlatforms().size());
     }
 
+    @Test
     void shouldCall1TimeToPlatformsAndGenres_whenSearchingFilters() {
         when(platformRepository.findPlatformsWithCount()).thenReturn(Collections.emptyList());
         when(genreRepository.findGenresWithCount()).thenReturn(Collections.emptyList());
@@ -108,8 +109,8 @@ public class GameServiceTest {
         verify(platformRepository, times(1)).findPlatformsWithCount();
         verify(genreRepository, times(1)).findGenresWithCount();
 
-        assertEquals(filterDTO.platforms().size(), 0);
-        assertEquals(filterDTO.genres().size(), 1);
+        assertEquals(0, filterDTO.platforms().size());
+        assertEquals(0, filterDTO.genres().size());
         assertNull(filterDTO.statuses());
     }
 }

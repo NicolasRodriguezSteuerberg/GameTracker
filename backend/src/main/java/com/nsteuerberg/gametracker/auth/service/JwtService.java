@@ -3,7 +3,6 @@ package com.nsteuerberg.gametracker.auth.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.nsteuerberg.gametracker.auth.config.SecurityProperties;
@@ -45,15 +44,10 @@ public class JwtService {
     }
 
     public DecodedJWT validateToken(String token) {
-        try {
-            token = token.replace("Bearer ", "");
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer(userGenerator)
-                    .build();
-            return verifier.verify(token);
-        } catch (JWTVerificationException e){
-            throw new JWTVerificationException(e.getMessage());
-        }
+        JWTVerifier verifier = JWT.require(algorithm)
+                .withIssuer(userGenerator)
+                .build();
+        return verifier.verify(token);
     }
 
     public Long extractUserId(DecodedJWT decodedJWT) {
